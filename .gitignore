@@ -1,0 +1,7 @@
+node_modules/
+venv/
+src/*.env
+src/*.sqlite3
+package-lock.json
+package.json
+tailwind.config.js

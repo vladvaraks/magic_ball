@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<button data-drawer-target="question-sidebar" data-drawer-toggle="question-sidebar" aria-controls="question-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+    <span class="sr-only">Открыть панель</span>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+       <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+    </svg>
+ </button>
+ 
+<div id="question-sidebar" class="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <div class="h-full px-3 text-white py-4 overflow-y-auto bg-gray-800 dark:bg-gray-900">
+        <p class="text-center text-2xl font-medium pl-2.5 mb-5">
+            Ваши вопросы шару
+        </p>
+        <hr class="h-px my-8 bg-white border-0">
+       <ul class="space-y-2 font-medium">
+            {% for question in history_question %}
+            <li>
+               <div href="#" class="flex items-start flex-col p-2 text-white rounded-lg dark:text-white group">
+                    <p class="mb-2">Вопрос: {{question.question.question}}</p>
+                    <p>Ответ: {{question.get_answer_display }}</p> 
+               </div>
+               <hr class="h-px my-8 bg-white border-0">
+            </li>
+            {% endfor %}
+       </ul>
+    </div>
+</div>
+ 
+<div class="p-4 sm:ml-80">
+   <div class="flex flex-col justify-center items-center">
+        <h1 class="mb-16 text-4xl text-center font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">{{ user.get_username }}, Задай свой вопрос магическому шару!</h1>
+        <form method="post" class="w-full max-w-2xl">
+            {% csrf_token %}   
+            <label for="id_username" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Узнать ответ!</label>
+            <div class="relative">
+                {{form.question}}
+                <button hidden id="btn_question" type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-gray-900 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-lg px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Узнать ответ!</button>
+            </div>
+        </form>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="mt-10 w-full max-w-2xl text-center rounded-md bg-white p-4">
+            <h3 class="text-4xl font-medium text-gray-900">{{ message }}</h3>
+        </div>
+        {% endfor %}
+        {% endif %}
+   </div>
+</div>
+{% endblock %}
+
+{% block person_js %}
+    <script>
+        const input_question = document.querySelector('#id_question');
+        const btn_question = document.querySelector('#btn_question');
+
+        hiddenBtn(input_question, btn_question)
+    </script>
+{% endblock %}

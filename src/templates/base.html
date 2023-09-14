@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'head/css.html' %}
+    <title>Шар предсказаний</title>
+</head>
+<body class="bg-gray-900">
+    {% block content %}{% endblock %}
+    {% include 'head/js.html' %}
+    {% block person_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="h-screen flex flex-col justify-center items-center">
+    <h1 class="mb-32 text-4xl text-center font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">Представся магическому шару!</h1>
+    <form method="post" class="w-full max-w-md">
+        {% csrf_token %}   
+        <label for="id_username" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Узнать судьбу!</label>
+        <div class="relative">
+            {{form.username}}
+            <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-black hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-lg px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Узнать судьбу!</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
